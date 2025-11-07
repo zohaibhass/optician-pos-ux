@@ -1,1 +1,149 @@
-<div class='bg-white rounded-lg shadow-lg p-4 mt-4'><div class='flex justify-between items-center gap-4'><div class='w-1/2'><input placeholder='Search customer' [(ngModel)]='search' class='form-control w-full' (keyup.enter)='searchCustomer()'/><div *ngIf='customer' class='mt-2 p-2 border rounded bg-gray-50'><div class='font-semibold text-gray-800'>{{customer.name}}</div><div class='text-sm text-gray-500'>{{customer.phone}}</div><div class='text-green-600 font-bold'>Balance: {{customer.balance | number:'1.0-0'}} Rs</div></div></div><div class='w-1/2'><input placeholder='Search product' [(ngModel)]='psearch' class='form-control w-full' (keyup.enter)='searchProduct()'/></div></div><div class='mt-6 overflow-x-auto'><table class='table-auto w-full text-left border'><thead class='bg-gray-100 text-gray-700'><tr><th class='px-2 py-1'>Product</th><th class='px-2 py-1'>Price</th><th class='px-2 py-1'>Qty</th><th class='px-2 py-1 text-right'>Total</th></tr></thead><tbody><tr *ngFor='let it of items' class='border-t'><td class='px-2 py-1'>{{it.name}}</td><td class='px-2 py-1'>{{it.price | number:'1.2-2'}}</td><td class='px-2 py-1'><input type='number' [(ngModel)]='it.qty' (change)='recalc()' class='form-control w-20 text-center'/></td><td class='px-2 py-1 text-right'>{{it.price * (it.qty || 0) | number:'1.2-2'}}</td></tr></tbody></table></div><div class='mt-6 flex justify-between items-center border-t pt-4'><div class='text-lg font-bold text-gray-800'>Total: {{total | number:'1.2-2'}}</div><div class='space-x-2'><button (click)='save()' class='btn btn-success'>Save</button><button (click)='syncNow()' class='btn btn-primary'>Sync Now</button></div></div></div>
+<div class="pos-container">
+  <!-- Header Section -->
+  <div class="pos-header">
+    <h1 class="pos-title">Point of Sale</h1>
+    <div class="header-actions">
+      <button class="btn-sync" (click)="syncNow()">
+        <mat-icon>sync</mat-icon>
+        Sync
+      </button>
+    </div>
+  </div>
+
+  <!-- Search Section -->
+  <div class="search-section">
+    <div class="search-card">
+      <div class="search-header">
+        <mat-icon>person</mat-icon>
+        <h3>Customer Search</h3>
+      </div>
+      <div class="search-input-group">
+        <input
+          type="text"
+          placeholder="Enter customer name or phone..."
+          [(ngModel)]="search"
+          (keyup.enter)="searchCustomer()"
+          class="search-input"
+        />
+        <button class="btn-search" (click)="searchCustomer()">
+          <mat-icon>search</mat-icon>
+        </button>
+      </div>
+
+      <div *ngIf="customer" class="customer-info-card">
+        <div class="customer-avatar">
+          {{ customer.name.charAt(0).toUpperCase() }}
+        </div>
+        <div class="customer-details">
+          <div class="customer-name">{{ customer.name }}</div>
+          <div class="customer-meta">
+            <span class="customer-phone">
+              <mat-icon>phone</mat-icon>
+              {{ customer.phone }}
+            </span>
+            <span
+              class="customer-balance"
+              [class.negative]="customer.balance < 0"
+            >
+              <mat-icon>account_balance_wallet</mat-icon>
+              {{ customer.balance | number : '1.0-0' }} Rs
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="search-card">
+      <div class="search-header">
+        <mat-icon>inventory_2</mat-icon>
+        <h3>Product Search</h3>
+      </div>
+      <div class="search-input-group">
+        <input
+          type="text"
+          placeholder="Search products..."
+          [(ngModel)]="psearch"
+          (keyup.enter)="searchProduct()"
+          class="search-input"
+        />
+        <button class="btn-search" (click)="searchProduct()">
+          <mat-icon>search</mat-icon>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Cart Section -->
+  <div class="cart-section">
+    <div class="section-header">
+      <h2>Cart Items</h2>
+      <span class="items-count">{{ items.length }} items</span>
+    </div>
+
+    <div class="cart-table-container">
+      <table class="cart-table">
+        <thead>
+          <tr>
+            <th class="product-col">Product</th>
+            <th class="price-col">Price</th>
+            <th class="qty-col">Quantity</th>
+            <th class="total-col">Total</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let it of items; let i = index" class="cart-item">
+            <td class="product-info">
+              <div class="product-name">{{ it.name }}</div>
+              <div class="product-sku" *ngIf="it.sku">SKU: {{ it.sku }}</div>
+            </td>
+            <td class="price">{{ it.price | number : '1.2-2' }} Rs</td>
+            <td class="quantity">
+              <div class="qty-controls">
+                <button class="qty-btn" (click)="decreaseQty(i)">
+                  <mat-icon>remove</mat-icon>
+                </button>
+                <input
+                  type="number"
+                  [(ngModel)]="it.qty"
+                  (change)="recalc()"
+                  class="qty-input"
+                  min="1"
+                />
+                <button class="qty-btn" (click)="increaseQty(i)">
+                  <mat-icon>add</mat-icon>
+                </button>
+              </div>
+            </td>
+            <td class="total-amount">
+              {{ it.price * (it.qty || 0) | number : '1.2-2' }} Rs
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div *ngIf="items.length === 0" class="empty-cart">
+        <mat-icon>shopping_cart</mat-icon>
+        <p>No items in cart</p>
+        <span>Search and add products to get started</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer Section -->
+  <div class="pos-footer">
+    <div class="total-section">
+      <div class="total-label">Total Amount</div>
+      <div class="total-amount">{{ total | number : '1.2-2' }} Rs</div>
+    </div>
+    <div class="action-buttons">
+<button class="btn-secondary" (click)="clearCart()">
+  <mat-icon>clear</mat-icon>
+  Clear
+</button>
+      <button class="btn-primary" (click)="save()">
+        <mat-icon>check_circle</mat-icon>
+        Complete Sale
+      </button>
+    </div>
+  </div>
+</div>
