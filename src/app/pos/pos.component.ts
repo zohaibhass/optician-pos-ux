@@ -136,7 +136,6 @@ export class PosComponent implements OnInit {
   }
 
   loadProducts() {
-    // Try API first, fall back to sample data
     this.http.get<any>('/sync/download?terminalId=term-1').subscribe(
       (r) => {
         this.items = (r.products || []).map((p: any) => ({
@@ -148,7 +147,6 @@ export class PosComponent implements OnInit {
         }));
       },
       (error) => {
-        // Fallback to sample data if API fails
         console.log('API failed, using sample data');
         this.items = this.sampleData.products.map((p: any) => ({
           productId: p.productId,
@@ -168,7 +166,6 @@ export class PosComponent implements OnInit {
     return;
   }
 
-  // Fallback-first approach
   let found = this.sampleData.customers.find(
     (c: any) =>
       c.name.toLowerCase().includes(term) ||

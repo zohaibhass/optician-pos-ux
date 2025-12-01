@@ -26,7 +26,7 @@ export class LoginComponent {
   login() {
     if (this.username === this.validUsername && this.password === this.validPassword) {
       this.message = `Logged in as ${this.username}`;
-      this.toastr.success(`Welcome back, ${this.username} ✅`, 'Login Successful');
+      this.toastr.success(`Welcome back, ${this.username}`, 'Login Successful');
      setTimeout(() => {
         this.router.navigate(['pos']);
       }, 500);
