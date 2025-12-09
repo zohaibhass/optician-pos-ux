@@ -1,0 +1,18 @@
+<div class="dropdown-wrapper">
+  <label *ngIf="label">{{ label }}</label>
+
+  <select
+    class="dropdown-field"
+    [formControl]="control"
+    [disabled]="disabled"
+  >
+    <option value="" disabled selected>{{ placeholder }}</option>
+
+    <option
+      *ngFor="let opt of options"
+      [value]="opt.value"
+    >
+      {{ opt.label }}
+    </option>
+  </select>
+</div>

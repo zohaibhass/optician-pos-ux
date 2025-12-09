@@ -1,0 +1,43 @@
+.keypad-container {
+  display: grid;
+  gap: 10px;
+  padding: 10px;
+  background: #222;
+  border-radius: 10px;
+}
+
+.row {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+}
+
+button {
+  padding: 18px;
+  font-size: 20px;
+  font-weight: bold;
+  background: #333;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #444;
+}
+
+.btn-fn {
+  background: #4a4a4a;
+}
+
+.btn-action {
+  background: #2a7be4;
+}
+
+.btn-exit {
+  background: #ff3b30;
+  color: white;
+  font-size: 22px;
+  padding: 20px;
+}

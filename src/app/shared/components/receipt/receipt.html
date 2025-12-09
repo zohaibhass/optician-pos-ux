@@ -1,0 +1,31 @@
+<div class="receipt">
+  <div class="receipt-header">
+    <h3>STORE NAME</h3>
+
+    <div>{{ invoice().dateString }} {{ invoice().timeString }}</div>
+    <div>Bill: {{ invoice().billNo }}</div>
+    <div>Cashier: {{ invoice().cashier }}</div>
+
+    <hr />
+  </div>
+
+  <div class="receipt-items">
+    <div *ngFor="let item of items()" class="receipt-item">
+      <div class="item-name">{{ item.name }} ({{ item.barcode }})</div>
+      <div class="item-qty">{{ item.qty }}x</div>
+      <div class="item-total">{{ item.total | number:'1.2-2' }}</div>
+    </div>
+  </div>
+
+  <hr />
+
+  <div class="totals">
+    <div><span>Subtotal</span><span>{{ subtotal() | number:'1.2-2' }}</span></div>
+    <div><span>VAT ({{ taxPercent() }}%)</span><span>{{ vat() | number:'1.2-2' }}</span></div>
+    <div><span>Discount ({{ discountPercent() }}%)</span><span>{{ discount() | number:'1.2-2' }}</span></div>
+    <div class="net-total"><span>NET TOTAL</span><span>{{ netTotal() | number:'1.2-2' }}</span></div>
+  </div>
+
+  <hr />
+  <div class="thank-you">Thank you for shopping!</div>
+</div>

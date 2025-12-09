@@ -1,0 +1,44 @@
+<div class="keypad-container">
+
+  <div class="row">
+    <button (click)="keypadClick(7)">7</button>
+    <button (click)="keypadClick(8)">8</button>
+    <button (click)="keypadClick(9)">9</button>
+    <button class="btn-fn" (click)="keypadClick('RETURN')">RETURN</button>
+  </div>
+
+  <div class="row">
+    <button (click)="keypadClick(4)">4</button>
+    <button (click)="keypadClick(5)">5</button>
+    <button (click)="keypadClick(6)">6</button>
+    <button class="btn-fn" (click)="keypadClick('HOLD')">HOLD</button>
+  </div>
+
+  <div class="row">
+    <button (click)="keypadClick(1)">1</button>
+    <button (click)="keypadClick(2)">2</button>
+    <button (click)="keypadClick(3)">3</button>
+    <button class="btn-fn" (click)="keypadClick('RECALL')">RECALL</button>
+  </div>
+
+  <div class="row">
+    <button (click)="keypadClick('.')">.</button>
+    <button (click)="keypadClick(0)">0</button>
+    <button (click)="keypadClick('00')">00</button>
+    <button class="btn-fn" (click)="keypadClick('OPTIONS')">OPTIONS</button>
+  </div>
+
+  <div class="row">
+    <button class="btn-action" (click)="keypadClick('ENTER')">ENTER</button>
+    <button class="btn-action" (click)="keypadClick('PAY')">PAY</button>
+    <button class="btn-fn" (click)="keypadClick('-')">⌫</button>
+    <button class="btn-fn" (click)="keypadClick('+')">BAR/QTY</button>
+  </div>
+
+  <!-- NEW DISCOUNT BUTTON -->
+  <div class="row">
+    <button class="btn-fn" (click)="keypadClick('DISCOUNT')">DISCOUNT</button>
+    <button class="btn-exit" (click)="keypadClick('EXIT')">EXIT</button>
+  </div>
+
+</div>

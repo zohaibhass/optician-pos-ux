@@ -1,0 +1,18 @@
+<div class="modal-overlay">
+  <div class="modal" @fadeIn>
+    <h3>Edit Quantity</h3>
+
+    <div>Barcode: {{ barcode() }}</div>
+
+    <input 
+      type="number"
+      [(ngModel)]="qty"
+      min="1"
+    />
+
+    <div class="actions">
+      <button (click)="saveClick()">Save</button>
+      <button class="ghost" (click)="cancelClick()">Cancel</button>
+    </div>
+  </div>
+</div>

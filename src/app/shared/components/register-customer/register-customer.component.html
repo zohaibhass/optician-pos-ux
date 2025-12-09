@@ -1,0 +1,85 @@
+<div class="modal-container" [formGroup]="form">
+  <div class="modal-header">
+    <h2 class="title">Register Customer</h2>
+    <button class="close-btn" (click)="close()">X</button>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Personal Information</div>
+    <div class="grid-3">
+      <app-input-field label="Name" placeholder="Name *" formControlName="firstName"></app-input-field>
+
+      <div class="phone-group">
+        <app-dropdown-field label="Code" placeholder="Select Code *" [options]="codeList" [control]="codeListControl"></app-dropdown-field>
+        <app-input-field label="Phone Number" placeholder="0000000000" formControlName="phoneNumber" [maxlength]="10"></app-input-field>
+      </div>
+
+      <app-dropdown-field label="Gender" placeholder="Select Gender *" [options]="genderList" [control]="genderControl"></app-dropdown-field>
+    </div>
+
+    <div class="grid-2" style="margin-top: 16px;">
+      <app-dropdown-field label="Select Color Tag" [options]="colorList" [control]="colorTagControl" placeholder="Select Color Tag"></app-dropdown-field>
+      <app-input-field label="Currency" placeholder="Pakistani Rupee (PKR)" formControlName="currency" [readonly]="true"></app-input-field>
+    </div>
+  </div>
+
+  <div class="section-title">PRESCRIPTION</div>
+  <div class="card">
+    <div class="card-title">Prescription Details</div>
+
+    <div style="display: flex; gap: 40px; align-items: flex-start; margin-top: 10px;">
+      <div style="flex: 1;">
+        <div style="display: grid; grid-template-columns: 60px 140px 140px; gap: 14px 24px; align-items: center; font-size: 14.5px;">
+          <div></div>
+          <div style="text-align: center; font-weight: 700; color: #06b6d4;">Right Eye</div>
+          <div style="text-align: center; font-weight: 700; color: #06b6d4;">Left Eye</div>
+
+          <div style="font-weight: 600; color: #e2e8f0;">SPH</div>
+          <app-dropdown-field [options]="sphList" [control]="sphRightControl" placeholder="-19.50"></app-dropdown-field>
+          <app-dropdown-field [options]="sphList" [control]="sphLeftControl" placeholder="Select"></app-dropdown-field>
+
+          <div style="font-weight: 600; color: #e2e8f0;">CYL</div>
+          <app-dropdown-field [options]="cylList" [control]="cylRightControl" placeholder="Select"></app-dropdown-field>
+          <app-dropdown-field [options]="cylList" [control]="cylLeftControl" placeholder="Select"></app-dropdown-field>
+
+          <div style="font-weight: 600; color: #e2e8f0;">AXIS</div>
+          <app-dropdown-field [options]="axisList" [control]="axisRightControl" placeholder="Select"></app-dropdown-field>
+          <app-dropdown-field [options]="axisList" [control]="axisLeftControl" placeholder="Select"></app-dropdown-field>
+
+          <div style="font-weight: 600; color: #e2e8f0;">ADD</div>
+          <app-dropdown-field [options]="addList" [control]="addRightControl" placeholder="Select"></app-dropdown-field>
+          <app-dropdown-field [options]="addList" [control]="addLeftControl" placeholder="Select"></app-dropdown-field>
+        </div>
+      </div>
+
+      <div style="min-width: 260px;">
+        <div style="margin-bottom: 20px;">
+          <app-input-field label="Prescription Date *" type="date" formControlName="prescriptionDate"></app-input-field>
+        </div>
+        <div style="margin-bottom: 20px;">
+          <app-input-field label="Next visit Date *" type="date" formControlName="nextVisitDate"></app-input-field>
+        </div>
+        <div style="margin-bottom: 20px;">
+          <app-input-field label="Job Card No" placeholder="Job Card No" formControlName="jobCardNo"></app-input-field>
+        </div>
+      
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Order Details</div>
+    <div class="grid-2">
+      <app-input-field label="Order Date *" type="date" formControlName="orderDate"></app-input-field>
+      <app-input-field label="Delivery Date *" type="date" formControlName="deliveryDate"></app-input-field>
+        <div>
+          <app-input-field label="Comments" placeholder="Enter Comments" formControlName="comments" [textarea]="true"></app-input-field>
+        </div>
+    </div>
+  </div>
+
+  <div class="footer-btns">
+    <button class="cancel-btn" (click)="close()">Cancel</button>
+    <button class="save-btn" (click)="save()">Save</button>
+  </div>
+</div>

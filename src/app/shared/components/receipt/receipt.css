@@ -1,0 +1,48 @@
+.receipt {
+  font-family: monospace;
+  padding: 10px;
+  color: #000;
+}
+
+.receipt-header {
+  text-align: center;
+}
+
+.receipt-items {
+  margin-top: 10px;
+}
+
+.receipt-item {
+  display: flex;
+  justify-content: space-between;
+  font-size: 13px;
+  margin-bottom: 4px;
+}
+
+.item-name {
+  width: 60%;
+}
+
+.item-qty {
+  width: 20%;
+  text-align: right;
+}
+
+.item-total {
+  width: 20%;
+  text-align: right;
+}
+
+.totals div {
+  display: flex;
+  justify-content: space-between;
+}
+
+.net-total {
+  font-weight: 700;
+}
+
+.thank-you {
+  text-align: center;
+  margin-top: 10px;
+}

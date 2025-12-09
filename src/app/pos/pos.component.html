@@ -1,147 +1,222 @@
 <div class="pos-container">
   <div class="pos-header">
-    <h1 class="pos-title">Point of Sale</h1>
-    <div class="header-actions">
-      <button class="btn-sync" (click)="syncNow()">
-        <mat-icon>sync</mat-icon>
-        Sync
-      </button>
-    </div>
-  </div>
-
-  <div class="search-section">
-    <div class="search-card">
-      <div class="search-header">
-        <mat-icon>person</mat-icon>
-        <h3>Customer Search</h3>
+    <h1 class="pos-title"># ipos</h1>
+    <div class="header-info">
+      <div class="header-info-item">
+        <div class="header-label">BILL NO</div>
+        <div class="header-value font-mono">{{ pos.invoice.billNo }}</div>
       </div>
-      <div class="search-input-group">
-        <input
-          type="text"
-          placeholder="Enter customer name or phone..."
-          [(ngModel)]="search"
-          (keyup.enter)="searchCustomer()"
-          class="search-input"
-        />
-        <button class="btn-search" (click)="searchCustomer()">
-          <mat-icon>search</mat-icon>
-        </button>
+      <div class="header-info-item">
+        <div class="header-label">COUNTER</div>
+        <div class="header-value">{{ pos.invoice.counter }}</div>
       </div>
-
-      <div *ngIf="customer" class="customer-info-card">
-        <div class="customer-avatar">
-          {{ customer.name.charAt(0).toUpperCase() }}
-        </div>
-        <div class="customer-details">
-          <div class="customer-name">{{ customer.name }}</div>
-          <div class="customer-meta">
-            <span class="customer-phone">
-              <mat-icon>phone</mat-icon>
-              {{ customer.phone }}
-            </span>
-            <span
-              class="customer-balance"
-              [class.negative]="customer.balance < 0"
-            >
-              <mat-icon>account_balance_wallet</mat-icon>
-              {{ customer.balance | number : '1.0-0' }} Rs
-            </span>
-          </div>
-        </div>
+      <div class="header-info-item">
+        <div class="header-label">DATE</div>
+        <div class="header-value">{{ pos.invoice.dateString }}</div>
       </div>
-    </div>
-
-    <div class="search-card">
-      <div class="search-header">
-        <mat-icon>inventory_2</mat-icon>
-        <h3>Product Search</h3>
+      <div class="header-info-item">
+        <div class="header-label">TIME</div>
+        <div class="header-value">{{ pos.invoice.timeString }}</div>
       </div>
-      <div class="search-input-group">
-        <input
-          type="text"
-          placeholder="Search products..."
-          [(ngModel)]="psearch"
-          (keyup.enter)="searchProduct()"
-          class="search-input"
-        />
-        <button class="btn-search" (click)="searchProduct()">
-          <mat-icon>search</mat-icon>
-        </button>
+      <div class="header-info-item">
+        <div class="header-label">CASHIER</div>
+        <div class="header-value">{{ pos.invoice.cashier }}</div>
       </div>
     </div>
   </div>
 
-  <!-- Cart Section -->
-  <div class="cart-section">
-    <div class="section-header">
-      <h2>Cart Items</h2>
-      <span class="items-count">{{ items.length }} items</span>
-    </div>
+  <div class="pos-content">
+    <div class="left-panel">
+      <div class="search-section">
+        <app-product-search (selectProduct)="pos.addProductByObject($event)"></app-product-search>
+        
+      </div>
 
-    <div class="cart-table-container">
-      <table class="cart-table">
-        <thead>
-          <tr>
-            <th class="product-col">Product</th>
-            <th class="price-col">Price</th>
-            <th class="qty-col">Quantity</th>
-            <th class="total-col">Total</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let it of items; let i = index" class="cart-item">
-            <td class="product-info">
-              <div class="product-name">{{ it.name }}</div>
-              <div class="product-sku" *ngIf="it.sku">SKU: {{ it.sku }}</div>
-            </td>
-            <td class="price">{{ it.price | number : '1.2-2' }} Rs</td>
-            <td class="quantity">
-              <div class="qty-controls">
-                <button class="qty-btn" (click)="decreaseQty(i)">
-                  <mat-icon>remove</mat-icon>
-                </button>
+      <div class="product-table-container">
+        <table class="product-table">
+          <thead>
+            <tr>
+              <th>Descriptions</th>
+              <th>Unit Price</th>
+              <th>Quantity</th>
+              <th>Discount</th>
+              <th>Total Discount</th>
+              <th>Total Price</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            @for (item of cart.items; track item.barcode) {
+            <tr>
+              <td class="text-left">{{ item.name }}</td>
+
+              <td>{{ item.price | number : '1.2-2' }}</td>
+
+              <td (click)="editQuantity(item.barcode)" class="qty-cell">
+                {{ item.qty }}
+              </td>
+
+              <td>
                 <input
-                  type="number"
-                  [(ngModel)]="it.qty"
-                  (change)="recalc()"
-                  class="qty-input"
-                  min="1"
+                  type="text"
+                  class="search-input"
+                  [(ngModel)]="item.discountInput"
+                  (input)="updateDiscount(item)"
+                  placeholder="0"
                 />
-                <button class="qty-btn" (click)="increaseQty(i)">
-                  <mat-icon>add</mat-icon>
-                </button>
-              </div>
-            </td>
-            <td class="total-amount">
-              {{ it.price * (it.qty || 0) | number : '1.2-2' }} Rs
-            </td>
-          </tr>
-        </tbody>
-      </table>
+              </td>
 
-      <div *ngIf="items.length === 0" class="empty-cart">
-        <mat-icon>shopping_cart</mat-icon>
-        <p>No items in cart</p>
-        <span>Search and add products to get started</span>
+              <td>
+                {{ item.totalDiscount | number : '1.2-2' }}
+              </td>
+
+              <td>
+                {{ item.totalAfterDiscount | number : '1.2-2' }}
+              </td>
+
+              <td>
+                <button class="small" (click)="removeItem(item.barcode)">✕</button>
+              </td>
+            </tr>
+            } @if (cart.items.length === 0) {
+            <tr>
+              <td colspan="7" class="text-center">No items in cart</td>
+            </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+
+      <div class="keypad-section mt-4">
+        <app-keypad
+          (inputChanged)="onKeypadClick($event)"
+          (onDiscount)="openDiscountPopup()"
+        ></app-keypad>
+      </div>
+    </div>
+
+    <div class="right-panel">
+      <div class="totals-section">
+        <div class="total-row">
+          <span class="total-label">TOTAL AMT</span>
+          <span class="total-value font-mono">{{ pos.subtotal() | number : '1.3-3' }}</span>
+        </div>
+
+        <div class="total-row">
+          <span class="total-label">VAT ({{ taxPercent }}%)</span>
+          <span class="total-value font-mono">{{
+            pos.vat(pos.subtotal(), taxPercent) | number : '1.3-3'
+          }}</span>
+        </div>
+
+        <div class="total-row">
+          <span class="total-label">TOTAL PCS</span>
+          <span class="total-value">{{ cart.items.length }}</span>
+        </div>
+
+        <!-- ORDER DISCOUNT -->
+        <div class="total-row discount-row">
+          <span class="total-label">ORDER DISCOUNT</span>
+          <span class="total-value discount-group">
+            <select [(ngModel)]="discountType" class="discount-type">
+              <option value="%">%</option>
+              <option value="amount">Amount</option>
+            </select>
+            <input type="number" [(ngModel)]="discountValue" min="0" class="discount-input" />
+          </span>
+        </div>
+
+        <div class="total-row main-total">
+          <span class="total-label">NET TOTAL</span>
+          <span class="total-value font-mono">
+            {{
+              pos.netTotal(pos.subtotal(), taxPercent, discountValue, discountType)
+                | number : '1.3-3'
+            }}
+          </span>
+        </div>
+      </div>
+
+      <!-- Popup -->
+      <div *ngIf="showResetPopup" class="receipt-modal">
+        <div class="receipt-overlay"></div>
+        <div class="receipt-content">
+          <p>Applying order-level discount will reset item-level discounts.</p>
+          <button (click)="confirmReset()" class="btn-secondary">OK</button>
+        </div>
+      </div>
+
+      <!-- Invoice Details -->
+      <div class="invoice-details">
+        <div class="invoice-row">
+          <span class="invoice-label">Bill No:</span>
+          <span class="invoice-value font-mono">{{ pos.invoice.billNo }}</span>
+        </div>
+        <div class="invoice-row">
+          <span class="invoice-label">Counter:</span>
+          <span class="invoice-value">{{ pos.invoice.counter }}</span>
+        </div>
+        <div class="invoice-row">
+          <span class="invoice-label">Date:</span>
+          <span class="invoice-value">{{ pos.invoice.dateString }}</span>
+        </div>
+        <div class="invoice-row">
+          <span class="invoice-label">Time:</span>
+          <span class="invoice-value">{{ pos.invoice.timeString }}</span>
+        </div>
+        <div class="invoice-row">
+          <span class="invoice-label">Cashier:</span>
+          <span class="invoice-value">{{ pos.invoice.cashier }}</span>
+        </div>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="action-buttons">
+        <button class="checkout-btn" (click)="openCheckout()">CHECKOUT</button>
+        <button class="btn-secondary" (click)="holdTransaction()">HOLD</button>
+        <button class="btn-secondary" (click)="recallTransaction()">RECALL</button>
       </div>
     </div>
   </div>
 
-  <!-- Footer Section -->
+  <!-- Footer -->
   <div class="pos-footer">
-    <div class="total-section">
-      <div class="total-label">Total Amount</div>
-      <div class="total-amount">{{ total | number : '1.2-2' }} Rs</div>
-    </div>
-    <div class="action-buttons">
-<button class="btn-secondary" (click)="clearCart()">
-  <mat-icon>clear</mat-icon>
-  Clear
-</button>
-      <button class="btn-primary" (click)="save()">
-        <mat-icon>check_circle</mat-icon>
-        Complete Sale
-      </button>
-    </div>
+    <div class="footer-text"><strong>CHECKOUT</strong> {{ pos.invoice.timeString }}</div>
+  </div>
+
+  <!-- Checkout modal -->
+  <app-checkout-modal
+    [visible]="showCheckout"
+    [subtotal]="pos.subtotal()"
+    [vat]="pos.vat(pos.subtotal(), taxPercent)"
+    [total]="pos.netTotal(pos.subtotal(), taxPercent, discountPercent)"
+    (cancel)="showCheckout = false"
+    (confirmWs)="confirmCheckout('websocket')"
+    (confirmPrint)="confirmCheckout('window')"
+  ></app-checkout-modal>
+
+  <!-- Quantity edit modal -->
+  @if (showQtyModal) {
+  <app-quantity-edit-modal
+    [barcode]="editingItemBarcode"
+    [initialQty]="cart.getQty(editingItemBarcode)"
+    (save)="onQtyModalSave($event.barcode, $event.qty)"
+    (cancel)="showQtyModal = false"
+  ></app-quantity-edit-modal>
+  }
+</div>
+
+<div class="receipt-modal" *ngIf="showReceiptPreview">
+  <div class="receipt-overlay" (click)="showReceiptPreview = false"></div>
+  <div class="receipt-content">
+    <app-receipt
+      [items]="cart.items"
+      [invoice]="pos.invoice"
+      [discountPercent]="discountPercent"
+      [taxPercent]="taxPercent"
+    >
+    </app-receipt>
+    <button class="close-btn" (click)="showReceiptPreview = false">✕ Close</button>
   </div>
 </div>

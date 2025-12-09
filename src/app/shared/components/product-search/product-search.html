@@ -1,0 +1,75 @@
+<div class="product-search-wrapper">
+
+  <!-- Row: Action Buttons -->
+  <div class="action-buttons">
+    <button (click)="startNewOrder()">New Order</button>
+    <button (click)="registerCustomer()">Register Customer</button>
+    <button (click)="openProfile()">Profile</button>
+    <button (click)="editCustomer()">Edit</button>
+    <button (click)="saveCustomer()">Save</button>
+  </div>
+
+  <!-- Row: Search Fields -->
+  <div class="search-fields">
+
+    <!-- Product Search -->
+    <div class="search-box product-search-container">
+      <app-input-field
+        [placeholder]="'Search by barcode or description'"
+        [(value)]="searchInput"
+        (valueChange)="onSearchChange()"
+        [type]="'text'"
+      ></app-input-field>
+
+      <ul class="dropdown" *ngIf="searchInput && filteredProducts.length">
+        <li *ngFor="let product of filteredProducts" (click)="onSelectProduct(product)">
+          <div class="row-line">
+            <span class="label">Name:</span>
+            <span class="value">{{ product.name }}</span>
+          </div>
+          <div class="row-line">
+            <span class="label">Barcode:</span>
+            <span class="value">{{ product.barcode }}</span>
+          </div>
+          <div class="row-line">
+            <span class="label">Price:</span>
+            <span class="value">{{ product.price | number:'1.0-2' }}$</span>
+          </div>
+        </li>
+      </ul>
+    </div>
+
+    <!-- Customer Search -->
+    <div class="search-box customer-search-container">
+      <app-input-field
+        [placeholder]="'Search Customer'"
+        [(value)]="customerSearch"
+        (valueChange)="onCustomerSearch()"
+        [type]="'text'"
+      ></app-input-field>
+
+      <ul class="dropdown" *ngIf="customerSearch && filteredCustomers.length">
+        <li *ngFor="let customer of filteredCustomers" (click)="onSelectCustomer(customer)">
+          <div class="row-line">
+            <span class="label">Name:</span>
+            <span class="value">{{ customer.name }}</span>
+          </div>
+          <div class="row-line">
+            <span class="label">Email:</span>
+            <span class="value">{{ customer.email }}</span>
+          </div>
+          <div class="row-line">
+            <span class="label">Phone:</span>
+            <span class="value">{{ customer.phone }}</span>
+          </div>
+        </li>
+      </ul>
+    </div>
+
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="modal-overlay" *ngIf="showRegisterPopup">
+  <app-register-customer (closePopup)="showRegisterPopup = false"></app-register-customer>
+</div>

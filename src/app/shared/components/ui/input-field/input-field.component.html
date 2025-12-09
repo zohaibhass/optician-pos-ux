@@ -1,0 +1,39 @@
+<div class="input-wrapper" [ngClass]="wrapperClass">
+  <label *ngIf="label">{{ label }}</label>
+
+  <!-- Textarea -->
+  <textarea
+    *ngIf="textarea"
+    [placeholder]="placeholder"
+    [disabled]="disabled"
+    [readonly]="readonly"
+    [attr.minlength]="minlength"
+    [attr.maxlength]="maxlength"
+    [ngModel]="value"
+    (ngModelChange)="onValueChange($event)"
+    (input)="onInput($event)"
+    (blur)="blurEvent.emit($event)"
+    (focus)="focusEvent.emit($event)"
+    class="input-field textarea"
+    [ngClass]="inputClass">
+  </textarea>
+
+  <!-- Normal Input -->
+  <input
+    *ngIf="!textarea"
+    [type]="type"
+    [placeholder]="placeholder"
+    [disabled]="disabled"
+    [readonly]="readonly"
+    [attr.autocomplete]="autocomplete"
+    [attr.minlength]="minlength"
+    [attr.maxlength]="maxlength"
+    [attr.pattern]="pattern || validationPattern"
+    [ngModel]="value"
+    (ngModelChange)="onValueChange($event)"
+    (input)="onInput($event)"
+    (blur)="blurEvent.emit($event)"
+    (focus)="focusEvent.emit($event)"
+    class="input-field"
+    [ngClass]="inputClass" />
+</div>

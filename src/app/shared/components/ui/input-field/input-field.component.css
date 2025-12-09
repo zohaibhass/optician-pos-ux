@@ -1,0 +1,27 @@
+.input-wrapper {
+  width: 100%;
+}
+
+label{
+  color:#e2e8f0;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.input-field {
+  width: 100%;
+  padding: 10px 14px;
+  font-size: 14px;
+  border-radius: 8px;
+  border: 1px solid rgba(100, 116, 139, 0.3);
+  background: #1e293b;
+  color: #e2e8f0;
+  box-sizing: border-box;
+}
+.textarea {
+  min-height: 100px;
+  width: 100% !important;
+  resize: vertical;
+  padding: 12px 14px;
+  line-height: 1.5;
+}

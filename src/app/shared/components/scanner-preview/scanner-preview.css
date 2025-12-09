@@ -1,0 +1,18 @@
+.preview-wrap {
+  width: 100%;
+  height: 200px;
+  background: #000;
+  border-radius: 8px;
+  overflow: hidden;
+  position: relative;
+}
+video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: scaleX(-1);
+} /* mirror */
+.flash {
+  box-shadow: 0 0 20px rgba(6, 182, 212, 0.6);
+  transition: box-shadow 280ms;
+}
