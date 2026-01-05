@@ -73,3 +73,6 @@
 <div class="modal-overlay" *ngIf="showRegisterPopup">
   <app-register-customer (closePopup)="showRegisterPopup = false"></app-register-customer>
 </div>
+<div class="app-customer-profile" *ngIf="showProfilePopup">
+  <app-customer-profile (closePopup)="showProfilePopup = false"></app-customer-profile>
+</div>

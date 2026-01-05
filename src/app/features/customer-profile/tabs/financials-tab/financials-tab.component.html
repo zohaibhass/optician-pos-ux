@@ -1,0 +1,82 @@
+<div class="financials-tab" *ngIf="form">
+
+  <!-- ================= Financial Overview ================= -->
+  <div class="form-section">
+    <h3 class="section-title">Financial Overview</h3>
+
+    <div class="form-row">
+      <div class="form-group" *ngIf="outstandingBalanceControl">
+        <app-input-field
+          [label]="'Outstanding Balance'"
+          [control]="outstandingBalanceControl"
+          [placeholder]="'0'"
+          [type]="'number'">
+        </app-input-field>
+      </div>
+
+      <div class="form-group" *ngIf="upcomingPaymentAmountControl">
+        <app-input-field
+          [label]="'Upcoming Payment Amount'"
+          [control]="upcomingPaymentAmountControl"
+          [placeholder]="'0'"
+          [type]="'number'">
+        </app-input-field>
+      </div>
+
+      <div class="form-group" *ngIf="upcomingPaymentDateControl">
+        <app-input-field
+          [label]="'Upcoming Payment Date'"
+          [control]="upcomingPaymentDateControl"
+          [placeholder]="'DD/MM/YYYY'"
+          [type]="'date'">
+        </app-input-field>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ================= Tabs ================= -->
+  <div class="payment-history-section">
+
+    <div class="tabs-header">
+      <button class="tab-btn"
+              [class.active]="activeTab === 'payments'"
+              (click)="activeTab = 'payments'">
+        Payment History
+      </button>
+
+      <button class="tab-btn"
+              [class.active]="activeTab === 'refunds'"
+              (click)="activeTab = 'refunds'">
+        Refunds & Adjustments
+      </button>
+    </div>
+
+    <!-- ================= PAYMENT HISTORY ================= -->
+    <div *ngIf="activeTab === 'payments'" class="payment-details-list">
+      <div class="payment-detail-row"><span>Date</span><span>{{ dateControl?.value || '—' }}</span></div>
+      <div class="payment-detail-row"><span>Invoice No</span><span>{{ invoiceNoControl?.value || '—' }}</span></div>
+      <div class="payment-detail-row"><span>Amount</span><span>{{ amountControl?.value || '—' }}</span></div>
+      <div class="payment-detail-row"><span>Payment Method</span><span>{{ paymentMethodControl?.value || '—' }}</span></div>
+      <div class="payment-detail-row"><span>Paid To</span><span>{{ paidToControl?.value || '—' }}</span></div>
+      <div class="payment-detail-row"><span>Created Date</span><span>{{ createdDateControl?.value || '—' }}</span></div>
+      <div class="payment-detail-row"><span>Created By</span><span>{{ createdByControl?.value || '—' }}</span></div>
+      <div class="payment-detail-row"><span>Authorization Date</span><span>{{ authorizationDateControl?.value || '—' }}</span></div>
+      <div class="payment-detail-row"><span>Authorized By</span><span>{{ authorizationByControl?.value || '—' }}</span></div>
+      <div class="payment-detail-row"><span>Is Canceled</span><span>{{ isCanceledControl?.value ? 'Yes' : 'No' }}</span></div>
+      <div class="payment-detail-row"><span>Is Reversal</span><span>{{ isReversalControl?.value ? 'Yes' : 'No' }}</span></div>
+      <div class="payment-detail-row"><span>Status</span><span>{{ statusControl?.value || '—' }}</span></div>
+    </div>
+
+    <!-- ================= REFUNDS ================= -->
+    <div *ngIf="activeTab === 'refunds'" class="payment-details-list">
+      <div class="payment-detail-row"><span>Date</span><span>{{ dateControl?.value || '—' }}</span></div>
+      <div class="payment-detail-row"><span>Invoice No</span><span>{{ invoiceNoControl?.value || '—' }}</span></div>
+      <div class="payment-detail-row"><span>Amount</span><span>{{ amountControl?.value || '—' }}</span></div>
+      <div class="payment-detail-row"><span>Payment Method</span><span>{{ paymentMethodControl?.value || '—' }}</span></div>
+      <div class="payment-detail-row"><span>Paid To</span><span>{{ paidToControl?.value || '—' }}</span></div>
+      <div class="payment-detail-row"><span>Status</span><span>{{ statusControl?.value || '—' }}</span></div>
+    </div>
+
+  </div>
+</div>

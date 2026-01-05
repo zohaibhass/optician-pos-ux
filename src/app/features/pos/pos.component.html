@@ -28,8 +28,8 @@
   <div class="pos-content">
     <div class="left-panel">
       <div class="search-section">
-        <app-product-search (selectProduct)="pos.addProductByObject($event)"></app-product-search>
-        
+        <app-product-search (selectProduct)="pos.addProductByObject($event)" (newOrder)="onNewOrder()"></app-product-search>
+
       </div>
 
       <div class="product-table-container">

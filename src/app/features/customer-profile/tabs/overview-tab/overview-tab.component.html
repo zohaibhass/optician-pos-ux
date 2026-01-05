@@ -1,0 +1,72 @@
+<div class="overview-tab">
+  <div class="form-section">
+    <h3 class="section-title">Overview</h3>
+    
+    <div class="form-row">
+      <div class="form-group">
+        <app-input-field
+          [label]="'Last Order'"
+          [control]="lastOrderControl"
+          [placeholder]="'DD/MM/YYYY'"
+          [type]="'date'">
+        </app-input-field>
+      </div>
+      
+      <div class="form-group">
+        <app-input-field
+          [label]="'Last Payment'"
+          [control]="lastPaymentControl"
+          [placeholder]="'DD/MM/YYYY'"
+          [type]="'date'">
+        </app-input-field>
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group">
+        <app-input-field
+          [label]="'Company Details'"
+          [control]="companyDetailsControl"
+          [placeholder]="'Enter company details'">
+        </app-input-field>
+      </div>
+      
+      <div class="form-group">
+        <div class="address-field-wrapper">
+          <app-input-field
+            [label]="'Address'"
+            [control]="addressControl"
+            [placeholder]="'addAddress'">
+          </app-input-field>
+          <button type="button" class="gear-icon-btn" title="Settings">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="3"></circle>
+              <path d="M12 1v6m0 6v6m9-9h-6m-6 0H3m15.364 6.364l-4.243-4.243m0 8.486l4.243-4.243M4.636 19.364l4.243-4.243m0-8.486L4.636 6.393"></path>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group">
+        <app-input-field
+          [label]="'Longitude'"
+          [control]="longitudeControl"
+          [placeholder]="'Enter longitude'"
+          [type]="'number'">
+        </app-input-field>
+      </div>
+      
+      <div class="form-group">
+        <app-input-field
+          [label]="'Latitude'"
+          [control]="latitudeControl"
+          [placeholder]="'addAddress'"
+          [type]="'number'">
+        </app-input-field>
+      </div>
+    </div>
+  </div>
+</div>
+

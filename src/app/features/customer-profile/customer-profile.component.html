@@ -1,0 +1,93 @@
+<!-- customer-profile.component.html -->
+<div class="customer-profile-container">
+  <div class="profile-header">
+    <h2>View Customer</h2>
+    <button class="close-btn" (click)="close()">X</button>
+  </div>
+
+  <!-- Customer Basic Information Section (Always Visible) -->
+  <div class="customer-basic-info">
+    <div class="info-row">
+      <span class="info-label">Email</span>
+      <span class="info-value">{{ emailControl.value || '-' }}</span>
+    </div>
+    <div class="info-row">
+      <span class="info-label">Phone Number</span>
+      <span class="info-value">{{ phoneNumberControl.value || '+9223904823948' }}</span>
+    </div>
+    <div class="info-row">
+      <span class="info-label">Business Type</span>
+      <span class="info-value">{{ businessTypeControl.value || 'Customer' }}</span>
+    </div>
+    <div class="info-row">
+      <span class="info-label">Location</span>
+      <span class="info-value">{{ locationControl.value || '-' }}</span>
+    </div>
+  </div>
+
+  <!-- Eye Prescription Details Section (Always Visible) -->
+  <div class="prescription-section">
+    <div class="prescription-grid-container">
+      <div class="prescription-grid">
+        <div class="prescription-header"></div>
+        <div class="prescription-header eye-header">Right Eye</div>
+        <div class="prescription-header eye-header">Left Eye</div>
+
+        <div class="prescription-label">SPH</div>
+        <div class="prescription-value">{{ sphRightControl.value || '-' }}</div>
+        <div class="prescription-value">{{ sphLeftControl.value || '-18.75' }}</div>
+
+        <div class="prescription-label">CYL</div>
+        <div class="prescription-value">{{ cylRightControl.value || '-' }}</div>
+        <div class="prescription-value">{{ cylLeftControl.value || '-' }}</div>
+
+        <div class="prescription-label">AXIS</div>
+        <div class="prescription-value">{{ axisRightControl.value || '-' }}</div>
+        <div class="prescription-value">{{ axisLeftControl.value || '-' }}</div>
+
+        <div class="prescription-label">ADD</div>
+        <div class="prescription-value">{{ addRightControl.value || '-' }}</div>
+        <div class="prescription-value">{{ addLeftControl.value || '-' }}</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Tab Navigation -->
+  <div class="tab-navigation">
+    <button 
+      class="tab-btn" 
+      [class.active]="activeTab === 'overview'"
+      (click)="setActiveTab('overview')">
+      Overview
+    </button>
+    <button 
+      class="tab-btn" 
+      [class.active]="activeTab === 'financials'"
+      (click)="setActiveTab('financials')">
+      Financials
+    </button>
+    <button 
+      class="tab-btn" 
+      [class.active]="activeTab === 'transactions'"
+      (click)="setActiveTab('transactions')">
+      Order & Transactions
+    </button>
+  </div>
+
+  <!-- Tab Content (Conditional Rendering) -->
+  <form [formGroup]="form" class="profile-form">
+    <div class="tab-content">
+      <app-overview-tab *ngIf="activeTab === 'overview'" [form]="form"></app-overview-tab>
+      <app-financials-tab *ngIf="activeTab === 'financials'" [form]="form"></app-financials-tab>
+      <app-transactions-tab *ngIf="activeTab === 'transactions'" [form]="form"></app-transactions-tab>
+    </div>
+  </form>
+
+  <!-- Fixed Footer Buttons -->
+  <div class="profile-footer">
+    <div class="footer-actions">
+      <button class="btn-secondary" (click)="close()">Close</button>
+      <button class="btn-primary" (click)="save()">Save</button>
+    </div>
+  </div>
+</div>

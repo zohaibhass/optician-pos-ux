@@ -1,0 +1,67 @@
+.financials-tab {
+  width: 100%;
+}
+
+.form-section,
+.payment-history-section {
+  background: rgba(15, 23, 42, 0.8);
+  padding: 20px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+}
+
+.section-title {
+  color: #06b6d4;
+  font-weight: 700;
+  margin-bottom: 16px;
+}
+
+.tabs-header {
+  display: flex;
+  gap: 12px;
+  border-bottom: 1px solid rgba(6, 182, 212, 0.3);
+}
+
+.tab-btn {
+  background: transparent;
+  border: none;
+  color: #94a3b8;
+  padding: 10px;
+  cursor: pointer;
+}
+
+.tab-btn.active {
+  color: #06b6d4;
+  border-bottom: 2px solid #06b6d4;
+}
+
+.payment-details-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.payment-detail-row {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid rgba(100, 116, 139, 0.1);
+  padding: 8px 0;
+}
+.form-row {
+  display: flex;
+  gap: 16px;
+  width: 100%;
+}
+
+.form-group {
+  flex: 1 1 33.333%;
+  min-width: 0;
+}
+
+/* Optional: keep single row until very small screens */
+@media (max-width: 768px) {
+  .form-row {
+    flex-wrap: wrap; /* or remove this line to FORCE single row even on mobile */
+  }
+}
+

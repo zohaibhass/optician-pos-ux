@@ -2,7 +2,8 @@
   background: rgba(15, 23, 42, 0.99);
   padding: 20px;
   width: 100%;
-  max-height: 95vh;
+  box-sizing: border-box;
+  max-height: 100%;
   overflow-y: auto;
   border-radius: 12px;
   color: #e2e8f0;
@@ -66,12 +67,10 @@
 
 .grid-3 {
   grid-template-columns: repeat(3, 1fr);
-   
 }
 
 .grid-2 {
   grid-template-columns: repeat(2, 1fr);
- 
 }
 
 .phone-group {
@@ -136,3 +135,48 @@
         overflow: auto;
 
   }
+
+/* Responsive adjustments (layout preserved) */
+@media (max-width: 992px) {
+  .grid-3 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .modal-container {
+    padding: 15px;
+  }
+
+  .grid-3, .grid-2 {
+    grid-template-columns: 1fr;
+  }
+
+  .phone-group {
+    flex-direction: column;
+    flex-wrap: wrap;
+  }
+
+  .footer-btns {
+    flex-direction: column-reverse;
+  }
+
+  .cancel-btn, .save-btn {
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .modal-container {
+    padding: 12px;
+    max-height: 100%;
+  }
+
+  .card {
+    padding: 15px;
+  }
+
+  .title {
+    font-size: 18px;
+  }
+}

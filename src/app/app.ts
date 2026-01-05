@@ -2,7 +2,7 @@ import { Component, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { LoginComponent } from "./auth/login.component";
 import { AuthService } from './auth/auth.service';
-import { PosComponent } from "./pos/pos.component";
+import { PosComponent } from "./features/pos/pos.component";
 
 @Component({
   selector: 'app-root',

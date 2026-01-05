@@ -1,0 +1,75 @@
+<div class="transactions-tab">
+
+  <!-- Financial Overview -->
+  <!-- Financial Overview -->
+  <div class="form-section">
+    <h3 class="section-title">Financial Overview</h3>
+
+    <div class="form-row">
+      <div class="form-group">
+        <app-input-field
+          label="Total Orders"
+          [control]="totalOrdersControl"
+          placeholder="0"
+          type="number"
+          [disabled]="true">
+        </app-input-field>
+      </div>
+
+      <div class="form-group">
+        <app-input-field
+          label="Pending Orders"
+          [control]="pendingOrdersControl"
+          placeholder="0"
+          type="number"
+          [disabled]="true">
+        </app-input-field>
+      </div>
+
+      <div class="form-group">
+        <app-input-field
+          label="Order Fulfillment Rate"
+          [control]="orderFulfillmentRateControl"
+          placeholder="0"
+          type="number"
+          [disabled]="true">
+        </app-input-field>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- Tabs Section -->
+  <div class="payment-details-section">
+    <div class="tabs-header">
+      <button class="tab-btn" [class.active]="activeTab==='orderHistory'" (click)="activeTab='orderHistory'">Order History</button>
+      <button class="tab-btn" [class.active]="activeTab==='fulfillment'" (click)="activeTab='fulfillment'">Order Fulfillment Performance</button>
+      <button class="tab-btn" [class.active]="activeTab==='supplier'" (click)="activeTab='supplier'">Supplier Reliability Score</button>
+    </div>
+
+    <!-- Order History -->
+    <div *ngIf="activeTab==='orderHistory'" class="payment-details-list">
+      <div class="payment-detail-row"><span class="payment-label">Order No</span><span class="payment-value">{{ orderNoControl.value || '—' }}</span></div>
+      <div class="payment-detail-row"><span class="payment-label">Order Date</span><span class="payment-value">{{ orderDateControl.value || '—' }}</span></div>
+      <div class="payment-detail-row"><span class="payment-label">Product</span><span class="payment-value">{{ productControl.value || '—' }}</span></div>
+      <div class="payment-detail-row"><span class="payment-label">Delivery Date</span><span class="payment-value">{{ deliveryDateControl.value || '—' }}</span></div>
+      <div class="payment-detail-row"><span class="payment-label">Paid Amount</span><span class="payment-value">{{ paidAmountControl.value || '—' }}</span></div>
+      <div class="payment-detail-row"><span class="payment-label">City</span><span class="payment-value">{{ cityControl.value || '—' }}</span></div>
+      <div class="payment-detail-row"><span class="payment-label">Total Amount</span><span class="payment-value">{{ totalAmountControl.value || '—' }}</span></div>
+      <div class="payment-detail-row"><span class="payment-label">Status</span><span class="payment-value">{{ statusControl.value || '—' }}</span></div>
+      <div class="payment-detail-row"><span class="payment-label">Action</span><span class="payment-value">{{ actionControl.value || '—' }}</span></div>
+    </div>
+
+    <!-- Fulfillment -->
+    <div *ngIf="activeTab==='fulfillment'" class="payment-details-list">
+      <div class="payment-detail-row"><span class="payment-label">Metric</span><span class="payment-value">{{ fulfillmentMetricControl.value || '—' }}</span></div>
+      <div class="payment-detail-row"><span class="payment-label">Value</span><span class="payment-value">{{ fulfillmentValueControl.value || '—' }}</span></div>
+    </div>
+
+    <!-- Supplier Reliability -->
+    <div *ngIf="activeTab==='supplier'" class="payment-details-list">
+      <div class="payment-detail-row"><span class="payment-label">Metric</span><span class="payment-value">{{ supplierMetricControl.value || '—' }}</span></div>
+      <div class="payment-detail-row"><span class="payment-label">Value</span><span class="payment-value">{{ supplierValueControl.value || '—' }}</span></div>
+    </div>
+  </div>
+</div>

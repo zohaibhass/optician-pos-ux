@@ -1,6 +1,8 @@
+// input-field.component.ts (updated - minimal changes)
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, Input, Output, forwardRef } from '@angular/core';
-import { FormsModule, NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
+import { Component, EventEmitter, Input, Output, forwardRef, OnInit, OnDestroy } from '@angular/core';
+import { FormsModule, NG_VALUE_ACCESSOR, ControlValueAccessor, FormControl, AbstractControl } from '@angular/forms';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-input-field',
@@ -16,7 +18,7 @@ import { FormsModule, NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/f
     }
   ]
 })
-export class InputFieldComponent implements ControlValueAccessor {
+export class InputFieldComponent implements ControlValueAccessor, OnInit, OnDestroy {
   @Input() value: any = '';
   @Output() valueChange = new EventEmitter<any>();
 
@@ -33,6 +35,9 @@ export class InputFieldComponent implements ControlValueAccessor {
   @Input() validationPattern: string | RegExp = '';
   @Input() inputClass: string = '';
   @Input() wrapperClass: string = '';
+  
+  @Input() control!: FormControl | AbstractControl; // Add this line
+  @Input() formControlName!: string; // Add this line
 
   @Input() textarea: boolean = false;
 
@@ -42,6 +47,25 @@ export class InputFieldComponent implements ControlValueAccessor {
 
   private onChange = (_: any) => {};
   private onTouched = () => {};
+  private controlSubscription?: Subscription;
+
+  ngOnInit() {
+    if (this.control) {
+      // Sync disabled state
+      this.disabled = this.control.disabled;
+      
+      // Subscribe to value changes
+      this.controlSubscription = this.control.valueChanges.subscribe(value => {
+        this.writeValue(value);
+      });
+    }
+  }
+
+  ngOnDestroy() {
+    if (this.controlSubscription) {
+      this.controlSubscription.unsubscribe();
+    }
+  }
 
   writeValue(value: any): void {
     this.value = value ?? '';
@@ -64,6 +88,11 @@ export class InputFieldComponent implements ControlValueAccessor {
     this.valueChange.emit(val);
     this.onChange(val);
     this.onTouched();
+    
+    // Update the form control if it exists
+    if (this.control) {
+      this.control.setValue(val);
+    }
   }
 
   onInput(event: Event) {

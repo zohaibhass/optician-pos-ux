@@ -5,6 +5,7 @@ import { Component, EventEmitter, HostListener, Output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { InputFieldComponent } from "../ui/input-field/input-field.component";
 import { RegisterCustomerComponent } from "../register-customer/register-customer.component";
+import { CustomerProfileComponent } from "../../../features/customer-profile/customer-profile.component";
 
 export interface Product {
   id: string;
@@ -24,7 +25,7 @@ export interface Customer {
 @Component({
   selector: 'app-product-search',
   standalone: true,
-  imports: [CommonModule, FormsModule, InputFieldComponent, RegisterCustomerComponent],
+  imports: [CommonModule, FormsModule, InputFieldComponent, RegisterCustomerComponent, CustomerProfileComponent],
   templateUrl: './product-search.html',
   styleUrls: ['./product-search.css']
 })
@@ -33,7 +34,7 @@ export class ProductSearchComponent {
   searchInput = '';
   customerSearch = '';
   showRegisterPopup = false;
-
+  showProfilePopup = false;
   products: Product[] = [
     { id: "1", name: 'Basic Reading Glasses', barcode: '1001', price: 12.5, stock: 20 },
     { id: "2", name: 'Eyeglasses Frame (Metal)', barcode: '1002', price: 25.0, stock: 15 },
@@ -110,7 +111,10 @@ export class ProductSearchComponent {
     this.showRegisterPopup = true;
   }
 
-  openProfile() { console.log('Profile clicked'); }
+    openProfile() { 
+    console.log('Profile clicked');
+    this.showProfilePopup = true; // Add this line
+  }
   editCustomer() { console.log('Edit clicked'); }
   saveCustomer() { console.log('Save clicked'); }
 }

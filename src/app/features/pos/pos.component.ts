@@ -3,20 +3,20 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 
-import { CartService } from '../services/cart.service';
-import { ScannerService } from '../services/scanner.service';
-import { PosService } from "../services/pos.service";
-import { PrintService } from '../services/print.service';
+import { CartService } from '../../services/cart.service';
+import { ScannerService } from '../../services/scanner.service';
+import { PosService } from "../../services/pos.service";
+import { PrintService } from '../../services/print.service';
 
-import { CheckoutModalComponent } from '../shared/components/checkout-modal/checkout-modal.component';
-import { KeypadComponent } from '../shared/components/keypad-component/keypad.component';
-import { ScannerPreviewComponent } from '../shared/components/scanner-preview/scanner-preview.component';
-import { ProductSearchComponent } from '../shared/components/product-search/product-search.component';
-import { QuantityEditModalComponent } from '../shared/components/quantity-edit/quantity-edit-modal.component';
+import { CheckoutModalComponent } from '../../shared/components/checkout-modal/checkout-modal.component';
+import { KeypadComponent } from '../../shared/components/keypad-component/keypad.component';
+import { ScannerPreviewComponent } from '../../shared/components/scanner-preview/scanner-preview.component';
+import { ProductSearchComponent } from '../../shared/components/product-search/product-search.component';
+import { QuantityEditModalComponent } from '../../shared/components/quantity-edit/quantity-edit-modal.component';
 
-import { Product } from '../models/product.model';
-import { CartItem } from '../models/cart-item.model';
-import { ReceiptComponent } from "../shared/components/receipt/receipt";
+import { Product } from '../../models/product.model';
+import { CartItem } from '../../models/cart-item.model';
+import { ReceiptComponent } from "../../shared/components/receipt/receipt";
 @Component({
   selector: 'app-pos',
   standalone: true,
@@ -319,7 +319,7 @@ applyOrderDiscount() {
   }
 }
 onNewOrder() {
-  this.cart.clear(); // This now correctly emits [] and updates the UI
+  this.cart.clear(); 
 
   this.discountValue = 0;
   this.discountType = '%';
@@ -327,7 +327,7 @@ onNewOrder() {
   this.showCheckout = false;
   this.showReceiptPreview = false;
 
-  // Optional: fresh bill number
+
   const now = new Date();
   this.pos.invoice.billNo = 'B' + now.getTime().toString().slice(-8);
   this.pos.invoice.dateString = now.toLocaleDateString('en-GB');
