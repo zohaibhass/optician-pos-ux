@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, Input} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormGroup, FormControl } from '@angular/forms';
 import { InputFieldComponent } from '../../../../shared/components/ui/input-field/input-field.component';
@@ -11,7 +11,7 @@ import { InputFieldComponent } from '../../../../shared/components/ui/input-fiel
   styleUrls: ['./transactions-tab.component.css']
 })
 export class TransactionsTabComponent {
-  form: FormGroup;
+  @Input() form!: FormGroup;
 
   activeTab: 'orderHistory' | 'fulfillment' | 'supplier' = 'orderHistory';
 
