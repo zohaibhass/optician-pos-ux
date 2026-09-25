@@ -23,7 +23,7 @@ export class TransactionsTabComponent {
       orderFulfillmentRate: new FormControl(0),
 
       orderNo: new FormControl(''),
-      orderDate: new FormControl(''),
+      orderDate: new FormControl(''),we
       product: new FormControl(''),
       deliveryDate: new FormControl(''),
       paidAmount: new FormControl(''),
